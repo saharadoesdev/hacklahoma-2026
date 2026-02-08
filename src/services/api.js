@@ -83,6 +83,40 @@ export async function generatePath(userQuery) {
 }
 
 /**
+ * Create a new opportunity/listing.
+ * Tries to post to the backend; if unavailable, falls back to pushing into mock data.
+ */
+export async function createListing(listing) {
+    // Ensure the listing has an id (mock and frontend rely on string ids)
+    if (!listing.id) listing.id = Date.now().toString();
+
+    if (useMockData) {
+        console.log('[API] Using mock data for createListing');
+        opportunities.push(listing);
+        return listing;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/opportunities`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(listing)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.warn('[API] Create listing failed, falling back to mock:', error.message);
+        useMockData = true;
+        opportunities.push(listing);
+        return listing;
+    }
+}
+
+/**
  * Reset the mock data flag (useful for testing)
  */
 export function resetApiConnection() {
