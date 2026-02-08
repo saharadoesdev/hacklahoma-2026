@@ -21,7 +21,7 @@ function LandingPage() {
                         <span className="title-line">Start Climbing.</span>
                     </h1>
                     <p className="hero-description">
-                        Whether you know exactly what you want or you're still figuring it out—tell us
+                        Whether you know exactly what you want or you're still figuring it out, tell us
                         what's on your mind and we'll show you paths worth exploring.
                     </p>
 
