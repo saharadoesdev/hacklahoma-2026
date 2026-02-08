@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables (keep credentials safe!)
+.env
+server/.env
+
+gemini_json.js

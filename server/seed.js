@@ -5,10 +5,11 @@
  * Usage: node server/seed.js
  */
 
+import 'dotenv/config';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-// Your MongoDB Atlas connection string
-const uri = "mongodb+srv://meganbrue:6GJu19ZdDrwBZCbA@opportunities.2ejqhni.mongodb.net/?appName=Opportunities";
+// Load MongoDB URI from environment variables
+const uri = process.env.MONGODB_URI;
 
 const client = new MongoClient(uri, {
     serverApi: {
