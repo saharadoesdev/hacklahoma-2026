@@ -1,0 +1,123 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--space-5) var(--space-8);
+    background: transparent;
+    transition: background var(--transition);
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    font-family: var(--font-main);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: #ffffff;
+    transition: color var(--transition);
+}
+
+.navbar-logo:hover {
+    color: #ffffff;
+}
+
+.navbar.scrolled .navbar-logo {
+    color: var(--color-text-dark);
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+}
+
+.navbar-link {
+    font-size: var(--text-base);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+    color: #ffffff;
+}
+
+.navbar.scrolled .navbar-link {
+    color: var(--color-text);
+}
+
+.navbar.scrolled .navbar-link:hover,
+.navbar.scrolled .navbar-link.active {
+    color: var(--color-primary);
+}
+
+/* Mobile */
+.navbar-mobile-toggle {
+    display: none;
+    background: var(--color-primary);
+    border: none;
+    color: #ffffff;
+    font-size: var(--text-lg);
+    cursor: pointer;
+    padding: var(--space-2) var(--space-3);
+}
+
+@media (max-width: 921px) {
+    .navbar {
+        padding: var(--space-4) var(--space-5);
+    }
+
+    .navbar-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--color-surface);
+        padding: var(--space-6);
+        gap: var(--space-4);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition);
+    }
+
+    .navbar-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .navbar-links .navbar-link {
+        color: var(--color-text);
+    }
+
+    .navbar-links .navbar-link:hover {
+        color: var(--color-primary);
+    }
+
+    .navbar-mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
