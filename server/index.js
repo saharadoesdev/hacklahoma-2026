@@ -80,6 +80,24 @@ app.get('/api/opportunities/:id', async (req, res) => {
 });
 
 /**
+ * POST /api/opportunities
+ * Create a new opportunity in the database
+ */
+app.post('/api/opportunities', async (req, res) => {
+    try {
+        const newOpp = req.body;
+        if (!newOpp.id) newOpp.id = Date.now().toString();
+
+        await db.collection('opportunities').insertOne(newOpp);
+
+        res.status(201).json(newOpp);
+    } catch (error) {
+        console.error('Error creating opportunity:', error);
+        res.status(500).json({ error: 'Failed to create opportunity' });
+    }
+});
+
+/**
  * POST /api/generate-path
  * Takes user input and returns a personalized path using Gemini AI
  */

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateListingPage.css';
+import { createListing } from '../services/api';
 
 function CreateListingPage() {
     const navigate = useNavigate();
@@ -36,15 +37,22 @@ function CreateListingPage() {
         setTags(tags.filter(tag => tag !== tagToRemove));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitting:', { ...formData, tags });
+        const payload = { ...formData, tags };
+        console.log('Submitting:', payload);
 
-        setShowToast(true);
-        setTimeout(() => {
-            setShowToast(false);
-            navigate('/explore');
-        }, 2000);
+        try {
+            await createListing(payload);
+            setShowToast(true);
+            setTimeout(() => {
+                setShowToast(false);
+                navigate('/explore');
+            }, 2000);
+        } catch (error) {
+            console.error('Error submitting listing:', error);
+            alert('Failed to submit the listing. Please try again.');
+        }
     };
 
     return (
