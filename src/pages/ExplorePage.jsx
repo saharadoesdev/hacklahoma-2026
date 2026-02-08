@@ -1,13 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getOpportunities } from '../services/api';
-import { collections, getOpportunitiesByCollection } from '../data/mockData';
+import { collections } from '../data/mockData';
 import OpportunityCard from '../components/OpportunityCard';
 import './ExplorePage.css';
 
 function ExplorePage() {
     const [opportunities, setOpportunities] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [activeCollection, setActiveCollection] = useState(null);
     const [activeFilter, setActiveFilter] = useState('All');
 
@@ -17,8 +18,10 @@ function ExplorePage() {
             try {
                 const data = await getOpportunities();
                 setOpportunities(data);
-            } catch (error) {
-                console.error('Failed to load opportunities:', error);
+                setError(null);
+            } catch (err) {
+                console.error('Failed to load opportunities:', err);
+                setError('Failed to load opportunities. Showing cached data.');
             } finally {
                 setLoading(false);
             }
@@ -30,10 +33,11 @@ function ExplorePage() {
     const types = ['All', ...new Set(opportunities.map(opp => opp.type))];
 
     // Filter logic - collection takes priority, then type filter
+    // Now filters the fetched opportunities array directly
     const filteredOpportunities = useMemo(() => {
-        // If a collection is active, filter by collection
+        // If a collection is active, filter by collection field
         if (activeCollection) {
-            return getOpportunitiesByCollection(activeCollection);
+            return opportunities.filter(opp => opp.collections?.includes(activeCollection));
         }
         // Otherwise, apply type filter
         if (activeFilter !== 'All') {
@@ -82,6 +86,13 @@ function ExplorePage() {
                     </p>
                 </header>
 
+                {/* Error banner if API failed but using fallback */}
+                {error && (
+                    <div className="explore-error">
+                        {error}
+                    </div>
+                )}
+
                 {/* Collections */}
                 <section className="explore-collections">
                     <h2 className="section-title">Curated Collections</h2>
@@ -92,24 +103,17 @@ function ExplorePage() {
                                 className={`collection-card ${activeCollection === collection.id ? 'active' : ''}`}
                                 onClick={() => handleCollectionClick(collection.id)}
                             >
-                                <h3 className="collection-name">{collection.name}</h3>
+                                <span className="collection-icon">{collection.icon}</span>
+                                <h3 className="collection-title">{collection.title}</h3>
                                 <p className="collection-desc">{collection.description}</p>
                             </button>
                         ))}
                     </div>
                 </section>
 
-                {/* Active Collection Banner */}
-                {activeCollectionData && (
-                    <div className="active-collection-banner">
-                        <span>Showing: <strong>{activeCollectionData.name}</strong></span>
-                        <button onClick={() => setActiveCollection(null)}>Clear</button>
-                    </div>
-                )}
-
                 {/* Filter by Type */}
                 <section className="explore-filters">
-                    <div className="filter-tabs">
+                    <div className="filter-row">
                         {types.map(type => (
                             <button
                                 key={type}
@@ -124,9 +128,15 @@ function ExplorePage() {
 
                 {/* Opportunities Grid */}
                 <section className="explore-grid">
-                    {filteredOpportunities.map(opp => (
-                        <OpportunityCard key={opp.id} opportunity={opp} />
-                    ))}
+                    {filteredOpportunities.length > 0 ? (
+                        filteredOpportunities.map(opp => (
+                            <OpportunityCard key={opp.id} opportunity={opp} />
+                        ))
+                    ) : (
+                        <div className="explore-empty">
+                            No opportunities found for this filter.
+                        </div>
+                    )}
                 </section>
             </div>
         </div>

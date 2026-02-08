@@ -1,22 +1,57 @@
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getOpportunityById, getRelatedOpportunities, getTypeBadgeColor, getDifficultyColor } from '../data/mockData';
+import { getOpportunityById } from '../services/api';
+import { getRelatedOpportunities, getTypeBadgeColor, getDifficultyColor } from '../data/mockData';
 import './OpportunityPage.css';
 
 function OpportunityPage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const opportunity = getOpportunityById(id);
+    const [opportunity, setOpportunity] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [showToast, setShowToast] = useState(false);
+
+    // Fetch opportunity on mount
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await getOpportunityById(id);
+                setOpportunity(data);
+            } catch (error) {
+                console.error('Failed to load opportunity:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchData();
+    }, [id]);
 
     // Get related opportunities (what this leads to)
     const leadsToOpportunities = opportunity?.leadsTo
         ? getRelatedOpportunities(opportunity.leadsTo)
         : [];
 
+    const handleSaveToPath = () => {
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 2000);
+    };
+
+    if (loading) {
+        return (
+            <div className="opp-page page-content">
+                <div className="opp-container">
+                    <div className="opp-loading">Loading opportunity...</div>
+                </div>
+            </div>
+        );
+    }
+
     if (!opportunity) {
         return (
             <div className="opp-page page-content">
                 <div className="opp-container">
                     <h1>Opportunity not found</h1>
+                    <p>This opportunity may not exist or couldn't be loaded.</p>
                     <button className="btn btn-secondary" onClick={() => navigate('/explore')}>
                         Back to Explore
                     </button>
@@ -59,13 +94,13 @@ function OpportunityPage() {
                 <section className="opp-section">
                     <h2 className="opp-section-title">Skills & Topics</h2>
                     <div className="opp-tags">
-                        {opportunity.tags.map((tag, index) => (
+                        {opportunity.tags?.map((tag, index) => (
                             <span key={index} className="opp-tag">{tag}</span>
                         ))}
                     </div>
                 </section>
 
-                {/* NEW: Stepping Stones Section */}
+                {/* Stepping Stones Section */}
                 <section className="opp-section stepping-stones">
                     <h2 className="opp-section-title">🪨 Stepping Stones</h2>
 
@@ -139,11 +174,19 @@ function OpportunityPage() {
                     >
                         Apply Now
                     </a>
-                    <button className="btn btn-secondary btn-large">
+                    <button className="btn btn-secondary btn-large" onClick={handleSaveToPath}>
                         Save to Path
                     </button>
                 </div>
             </div>
+
+            {/* Toast */}
+            {showToast && (
+                <div className="toast">
+                    <span className="toast-icon">✓</span>
+                    <span>Saved to your path!</span>
+                </div>
+            )}
         </div>
     );
 }

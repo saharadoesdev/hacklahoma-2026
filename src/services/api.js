@@ -7,7 +7,7 @@
  * This allows development to continue even without the database connected.
  */
 
-import { opportunities, getOpportunityById as getMockOpportunity, generatePathForUser as generateMockPath } from './mockData';
+import { opportunities, getOpportunityById as getMockOpportunity, generatePathForUser as generateMockPath } from '../data/mockData';
 
 const API_BASE = 'http://localhost:3001/api';
 
