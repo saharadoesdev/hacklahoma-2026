@@ -1,50 +1,118 @@
-import { useState } from 'react';
-import { opportunities } from '../data/mockData';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { opportunities, collections, getOpportunitiesByCollection } from '../data/mockData';
 import OpportunityCard from '../components/OpportunityCard';
 import './ExplorePage.css';
 
 function ExplorePage() {
+    const [activeCollection, setActiveCollection] = useState(null);
     const [activeFilter, setActiveFilter] = useState('All');
 
-    const types = ['All', 'Research', 'Internship', 'Study Abroad', 'Hackathon', 'Fellowship', 'Volunteer'];
+    const collectionList = Object.values(collections);
+    const types = ['All', ...new Set(opportunities.map(opp => opp.type))];
 
-    const filteredOpportunities = activeFilter === 'All'
-        ? opportunities
-        : opportunities.filter(opp => opp.type === activeFilter);
+    // Filter logic - collection takes priority, then type filter
+    const filteredOpportunities = useMemo(() => {
+        // If a collection is active, filter by collection
+        if (activeCollection) {
+            return getOpportunitiesByCollection(activeCollection);
+        }
+        // Otherwise, apply type filter
+        if (activeFilter !== 'All') {
+            return opportunities.filter(opp => opp.type === activeFilter);
+        }
+        return opportunities;
+    }, [activeCollection, activeFilter]);
+
+    const handleCollectionClick = (collectionId) => {
+        if (activeCollection === collectionId) {
+            setActiveCollection(null); // Toggle off
+        } else {
+            setActiveCollection(collectionId);
+            setActiveFilter('All'); // Clear type filter when using collection
+        }
+    };
+
+    const handleFilterClick = (type) => {
+        setActiveFilter(type);
+        setActiveCollection(null); // Clear collection when using type filter
+    };
+
+    const activeCollectionData = activeCollection ? collections[activeCollection] : null;
 
     return (
-        <div className="explore page-content">
-            <header className="explore-header">
-                <h1 className="explore-title">Explore opportunities</h1>
-                <p className="explore-subtitle">
-                    Browse programs, internships, and experiences to find your next step.
-                </p>
-            </header>
+        <div className="explore-page page-content">
+            <div className="explore-container">
+                {/* Header */}
+                <header className="explore-hero">
+                    <h1 className="explore-title">Explore Opportunities</h1>
+                    <p className="explore-subtitle">
+                        Browse the catalog or filter by what interests you.
+                    </p>
+                    <p className="explore-cta">
+                        Not sure what you're looking for? <Link to="/" className="explore-link">Tell us about yourself</Link> and we'll find your path.
+                    </p>
+                </header>
 
-            <div className="explore-filters">
-                <div className="filter-bar">
-                    {types.map((type) => (
-                        <button
-                            key={type}
-                            className={`filter-btn ${activeFilter === type ? 'active' : ''}`}
-                            onClick={() => setActiveFilter(type)}
-                        >
-                            {type}
-                        </button>
-                    ))}
+                {/* Curated Collections */}
+                <section className="collections-section">
+                    <h2 className="section-title">Curated Collections</h2>
+                    <div className="collections-grid">
+                        {collectionList.map((collection) => (
+                            <button
+                                key={collection.id}
+                                className={`collection-card ${activeCollection === collection.id ? 'active' : ''}`}
+                                onClick={() => handleCollectionClick(collection.id)}
+                            >
+                                <span className="collection-icon">{collection.icon}</span>
+                                <h3 className="collection-title">{collection.title}</h3>
+                                <p className="collection-desc">{collection.description}</p>
+                            </button>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Type Filters */}
+                <div className="explore-filters">
+                    <div className="filter-row">
+                        {types.map((type) => (
+                            <button
+                                key={type}
+                                className={`filter-btn ${activeFilter === type && !activeCollection ? 'active' : ''}`}
+                                onClick={() => handleFilterClick(type)}
+                            >
+                                {type}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            <div className="explore-grid">
-                {filteredOpportunities.length > 0 ? (
-                    filteredOpportunities.map((opportunity) => (
-                        <OpportunityCard key={opportunity.id} opportunity={opportunity} />
-                    ))
-                ) : (
-                    <div className="explore-empty">
-                        <p>No opportunities found for this filter.</p>
+                {/* Active Filter Label */}
+                {activeCollection && activeCollectionData && (
+                    <div className="active-filter-label">
+                        <span>
+                            {activeCollectionData.icon} Showing: {activeCollectionData.title}
+                        </span>
+                        <button
+                            className="clear-filter"
+                            onClick={() => setActiveCollection(null)}
+                        >
+                            × Clear
+                        </button>
                     </div>
                 )}
+
+                {/* Results */}
+                <section className="explore-results">
+                    <p className="results-count">
+                        {filteredOpportunities.length} opportunities
+                    </p>
+                    <div className="explore-grid">
+                        {filteredOpportunities.map((opportunity) => (
+                            <OpportunityCard key={opportunity.id} opportunity={opportunity} />
+                        ))}
+                    </div>
+                </section>
             </div>
         </div>
     );

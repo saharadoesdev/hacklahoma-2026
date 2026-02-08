@@ -1,11 +1,16 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { getOpportunityById, getTypeBadgeColor, getDifficultyColor } from '../data/mockData';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { getOpportunityById, getRelatedOpportunities, getTypeBadgeColor, getDifficultyColor } from '../data/mockData';
 import './OpportunityPage.css';
 
 function OpportunityPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const opportunity = getOpportunityById(id);
+
+    // Get related opportunities (what this leads to)
+    const leadsToOpportunities = opportunity?.leadsTo
+        ? getRelatedOpportunities(opportunity.leadsTo)
+        : [];
 
     if (!opportunity) {
         return (
@@ -60,23 +65,57 @@ function OpportunityPage() {
                     </div>
                 </section>
 
-                <section className="opp-section">
-                    <div className="card path-card">
-                        <h3 className="path-title">Where this leads</h3>
-                        <div className="path-steps">
-                            {opportunity.typicalNextSteps.map((step, index) => (
-                                <div key={index} className="path-step">
-                                    <span className="path-step-num">{index + 1}</span>
-                                    <span>{step}</span>
+                {/* NEW: Stepping Stones Section */}
+                <section className="opp-section stepping-stones">
+                    <h2 className="opp-section-title">🪨 Stepping Stones</h2>
+
+                    <div className="stones-grid">
+                        {/* Prerequisites (What you need) */}
+                        <div className="stone-card prerequisites">
+                            <h3 className="stone-title">
+                                <span className="stone-icon">←</span>
+                                Good Prep for This
+                            </h3>
+                            <ul className="stone-list">
+                                {opportunity.prerequisites?.map((prereq, index) => (
+                                    <li key={index}>{prereq}</li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Destinations (Where this leads) */}
+                        <div className="stone-card destinations">
+                            <h3 className="stone-title">
+                                <span className="stone-icon">→</span>
+                                Where This Leads
+                            </h3>
+                            {leadsToOpportunities.length > 0 ? (
+                                <div className="stone-links">
+                                    {leadsToOpportunities.map((opp) => (
+                                        <Link
+                                            key={opp.id}
+                                            to={`/opportunity/${opp.id}`}
+                                            className="stone-link"
+                                        >
+                                            <span className="stone-link-title">{opp.title}</span>
+                                            <span className="stone-link-type">{opp.type}</span>
+                                        </Link>
+                                    ))}
                                 </div>
-                            ))}
+                            ) : (
+                                <ul className="stone-list">
+                                    {opportunity.typicalNextSteps?.map((step, index) => (
+                                        <li key={index}>{step}</li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
                 </section>
 
                 {opportunity.reviews && opportunity.reviews.length > 0 && (
                     <section className="opp-section">
-                        <h2 className="opp-section-title">What others say</h2>
+                        <h2 className="opp-section-title">What Others Say</h2>
                         {opportunity.reviews.map((review, index) => (
                             <div key={index} className="card review-card">
                                 <div className="review-header">
@@ -98,10 +137,10 @@ function OpportunityPage() {
                         rel="noopener noreferrer"
                         className="btn btn-primary btn-large"
                     >
-                        Apply now
+                        Apply Now
                     </a>
                     <button className="btn btn-secondary btn-large">
-                        Save to path
+                        Save to Path
                     </button>
                 </div>
             </div>

@@ -22,7 +22,7 @@
     border: none;
     cursor: pointer;
     transition: color var(--transition);
-    
+
 }
 
 .opp-back:hover {
@@ -44,7 +44,7 @@
 .opp-title {
     font-size: var(--text-4xl);
     margin-bottom: var(--space-4);
-    
+
 }
 
 .opp-meta {
@@ -53,7 +53,7 @@
     gap: var(--space-6);
     font-size: var(--text-sm);
     color: var(--color-text-light);
-    
+
 }
 
 /* Section */
@@ -65,7 +65,7 @@
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-light);
-    
+
     letter-spacing: 0.05em;
     margin-bottom: var(--space-4);
 }
@@ -89,7 +89,7 @@
     color: var(--color-text);
     background: var(--color-surface);
     border: 1px solid #dddddd;
-    
+
 }
 
 /* Path */
@@ -103,7 +103,7 @@
     font-weight: 600;
     margin-bottom: var(--space-5);
     color: var(--color-text-dark);
-    
+
 }
 
 .path-steps {
@@ -120,7 +120,7 @@
     background: var(--color-surface-alt);
     font-size: var(--text-sm);
     color: var(--color-text);
-    
+
 }
 
 .path-step-num {
@@ -154,7 +154,7 @@
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-text-dark);
-    
+
 }
 
 .review-rating {
@@ -181,6 +181,111 @@
     flex: 1;
 }
 
+/* Stepping Stones Section */
+.stepping-stones {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-10);
+}
+
+.stones-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+}
+
+.stone-card {
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.stone-card.prerequisites {
+    border-left: 4px solid var(--color-primary);
+}
+
+.stone-card.destinations {
+    border-left: 4px solid #f5a623;
+}
+
+.stone-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: var(--space-4);
+}
+
+.stone-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-primary);
+    background: rgba(26, 108, 122, 0.1);
+    border-radius: 50%;
+}
+
+.stone-card.destinations .stone-icon {
+    color: #f5a623;
+    background: rgba(245, 166, 35, 0.1);
+}
+
+.stone-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stone-list li {
+    padding: var(--space-2) 0;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stone-list li:last-child {
+    border-bottom: none;
+}
+
+.stone-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.stone-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-alt);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.stone-link:hover {
+    background: rgba(245, 166, 35, 0.1);
+    transform: translateX(4px);
+}
+
+.stone-link-title {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-dark);
+}
+
+.stone-link-type {
+    font-size: var(--text-xs);
+    color: var(--color-text-light);
+}
+
 @media (max-width: 768px) {
     .opp-title {
         font-size: var(--text-3xl);
@@ -193,5 +298,9 @@
 
     .opp-cta {
         flex-direction: column;
+    }
+
+    .stones-grid {
+        grid-template-columns: 1fr;
     }
 }
