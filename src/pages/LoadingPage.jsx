@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { generatePath } from '../services/api';
 import './LoadingPage.css';
 
 /**
- * Loading page shown while "AI" generates the path.
- * TODO: Replace setTimeout with actual Gemini API call.
+ * Loading page shown while generating the path.
+ * Calls the API (or falls back to mock data if server unavailable).
  */
 function LoadingPage() {
     const location = useLocation();
@@ -20,16 +21,30 @@ function LoadingPage() {
         return () => clearInterval(interval);
     }, []);
 
-    // Fake delay then navigate to results
-    // TODO: Replace this with actual API call to Gemini
+    // Generate path and navigate to results
     useEffect(() => {
-        const timer = setTimeout(() => {
-            navigate('/path', {
-                state: { query: userQuery },
-                replace: true // Don't allow back button to loading page
-            });
-        }, 2000); // 2 second fake delay
+        async function fetchPath() {
+            try {
+                const pathResult = await generatePath(userQuery);
+                navigate('/path', {
+                    state: {
+                        query: userQuery,
+                        pathResult: pathResult
+                    },
+                    replace: true // Don't allow back button to loading page
+                });
+            } catch (error) {
+                console.error('Failed to generate path:', error);
+                // Navigate anyway with empty result so user sees something
+                navigate('/path', {
+                    state: { query: userQuery },
+                    replace: true
+                });
+            }
+        }
 
+        // Small delay so loading animation is visible
+        const timer = setTimeout(fetchPath, 1000);
         return () => clearTimeout(timer);
     }, [navigate, userQuery]);
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { generatePathForUser, getRecommendedOpportunities } from '../data/mockData';
 import OpportunityCard from '../components/OpportunityCard';
@@ -10,9 +10,9 @@ function PathResultsPage() {
     const userQuery = location.state?.query || "your interests and goals";
     const [showToast, setShowToast] = useState(false);
 
-    // Generate personalized path using mock service
-    // TODO: This will become an API call to Gemini
-    const pathResult = generatePathForUser(userQuery);
+    // Get path result from navigation state (passed from LoadingPage)
+    // Falls back to generating locally if not provided
+    const pathResult = location.state?.pathResult || generatePathForUser(userQuery);
 
     // Get IDs used in the path
     const pathIds = pathResult.steps.map(s => s.id);
