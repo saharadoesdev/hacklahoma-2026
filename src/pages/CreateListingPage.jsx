@@ -38,10 +38,8 @@ function CreateListingPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // In a real app, this would send to the database
         console.log('Submitting:', { ...formData, tags });
 
-        // Show success toast
         setShowToast(true);
         setTimeout(() => {
             setShowToast(false);
@@ -53,18 +51,15 @@ function CreateListingPage() {
         <div className="create-page page-content">
             <div className="create-container">
                 <header className="create-header">
-                    <div className="create-icon">📝</div>
-                    <h1 className="create-title">Share an Opportunity</h1>
+                    <h1 className="create-title">Add an opportunity</h1>
                     <p className="create-subtitle">
-                        Help others discover the paths that helped you climb. Add a program,
-                        internship, or experience you'd recommend.
+                        Share a program, internship, or experience you'd recommend.
                     </p>
                 </header>
 
                 <form className="card create-form" onSubmit={handleSubmit}>
-                    {/* Title */}
                     <div className="form-group">
-                        <label className="form-label">Opportunity Title *</label>
+                        <label className="form-label">Title</label>
                         <input
                             type="text"
                             name="title"
@@ -76,16 +71,14 @@ function CreateListingPage() {
                         />
                     </div>
 
-                    {/* Type & Difficulty */}
                     <div className="form-row">
                         <div className="form-group">
-                            <label className="form-label">Type *</label>
+                            <label className="form-label">Type</label>
                             <select
                                 name="type"
                                 className="select"
                                 value={formData.type}
                                 onChange={handleInputChange}
-                                required
                             >
                                 <option value="Internship">Internship</option>
                                 <option value="Research">Research</option>
@@ -93,7 +86,7 @@ function CreateListingPage() {
                                 <option value="Hackathon">Hackathon</option>
                                 <option value="Fellowship">Fellowship</option>
                                 <option value="Volunteer">Volunteer</option>
-                                <option value="Diversity Program">Diversity Program</option>
+                                <option value="Conference">Conference</option>
                                 <option value="Program">Program</option>
                             </select>
                         </div>
@@ -113,7 +106,6 @@ function CreateListingPage() {
                         </div>
                     </div>
 
-                    {/* Location & Duration */}
                     <div className="form-row">
                         <div className="form-group">
                             <label className="form-label">Location</label>
@@ -121,7 +113,7 @@ function CreateListingPage() {
                                 type="text"
                                 name="location"
                                 className="input"
-                                placeholder="e.g., Remote, New York, NY"
+                                placeholder="e.g., Remote, NYC"
                                 value={formData.location}
                                 onChange={handleInputChange}
                             />
@@ -133,29 +125,27 @@ function CreateListingPage() {
                                 type="text"
                                 name="duration"
                                 className="input"
-                                placeholder="e.g., 10 weeks, 1 semester"
+                                placeholder="e.g., 10 weeks"
                                 value={formData.duration}
                                 onChange={handleInputChange}
                             />
                         </div>
                     </div>
 
-                    {/* Description */}
                     <div className="form-group">
-                        <label className="form-label">Description *</label>
+                        <label className="form-label">Description</label>
                         <textarea
                             name="description"
                             className="textarea"
-                            placeholder="Describe what this opportunity involves, who it's for, and what makes it valuable..."
+                            placeholder="What's this opportunity about?"
                             value={formData.description}
                             onChange={handleInputChange}
                             required
                         />
                     </div>
 
-                    {/* Link */}
                     <div className="form-group">
-                        <label className="form-label">Application Link</label>
+                        <label className="form-label">Link</label>
                         <input
                             type="url"
                             name="link"
@@ -166,10 +156,9 @@ function CreateListingPage() {
                         />
                     </div>
 
-                    {/* Tags */}
                     <div className="form-group">
-                        <label className="form-label">Tags (Press Enter to add)</label>
-                        <div className="tags-input-container">
+                        <label className="form-label">Tags (press Enter to add)</label>
+                        <div className="tags-container">
                             {tags.map((tag, index) => (
                                 <span key={index} className="tag-chip">
                                     {tag}
@@ -185,7 +174,7 @@ function CreateListingPage() {
                             <input
                                 type="text"
                                 className="tags-input"
-                                placeholder="Add skills, topics, keywords..."
+                                placeholder="Add tags..."
                                 value={tagInput}
                                 onChange={(e) => setTagInput(e.target.value)}
                                 onKeyDown={handleTagKeyDown}
@@ -193,7 +182,6 @@ function CreateListingPage() {
                         </div>
                     </div>
 
-                    {/* Actions */}
                     <div className="form-actions">
                         <button
                             type="button"
@@ -203,17 +191,16 @@ function CreateListingPage() {
                             Cancel
                         </button>
                         <button type="submit" className="btn btn-primary">
-                            🏔️ Share Opportunity
+                            Submit
                         </button>
                     </div>
                 </form>
             </div>
 
-            {/* Success Toast */}
             {showToast && (
                 <div className="toast">
                     <span className="toast-icon">✓</span>
-                    <span>Opportunity shared successfully! Redirecting...</span>
+                    <span>Opportunity added. Redirecting...</span>
                 </div>
             )}
         </div>

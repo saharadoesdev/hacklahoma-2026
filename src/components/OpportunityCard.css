@@ -1,89 +1,52 @@
-.opportunity-card {
-    padding: var(--space-6);
+.opp-card {
+    padding: var(--space-5);
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
 }
 
-.opportunity-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-summit-gold), var(--color-alpine-blue));
-    opacity: 0;
-    transition: opacity var(--transition-base);
-}
-
-.opportunity-card:hover::before {
-    opacity: 1;
-}
-
-.opportunity-card-header {
+.opp-card-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: var(--space-4);
+    gap: var(--space-3);
     margin-bottom: var(--space-3);
 }
 
-.opportunity-card-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-snow-white);
+.opp-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text);
     margin: 0;
-    line-height: 1.3;
 }
 
-.opportunity-card-description {
+.opp-card-desc {
     font-size: var(--text-sm);
-    color: rgba(248, 249, 250, 0.6);
+    color: var(--color-text-secondary);
     margin-bottom: var(--space-4);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.5;
 }
 
-.opportunity-card-meta {
+.opp-card-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-3);
+    gap: var(--space-4);
     margin-bottom: var(--space-4);
     font-size: var(--text-xs);
-    color: rgba(248, 249, 250, 0.5);
+    color: var(--color-text-muted);
 }
 
-.opportunity-card-meta-item {
+.opp-card-meta-item {
     display: flex;
     align-items: center;
     gap: var(--space-1);
 }
 
-.opportunity-card-meta-icon {
-    opacity: 0.6;
-}
-
-.opportunity-card-tags {
+.opp-card-tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-}
-
-.opportunity-card-arrow {
-    position: absolute;
-    right: var(--space-4);
-    bottom: var(--space-4);
-    font-size: var(--text-xl);
-    color: var(--color-summit-gold);
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: all var(--transition-base);
-}
-
-.opportunity-card:hover .opportunity-card-arrow {
-    opacity: 1;
-    transform: translateX(0);
 }

@@ -12,8 +12,12 @@ function Navbar() {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    <span className="navbar-logo-icon">⛰️</span>
-                    <span className="navbar-logo-text">Atlas</span>
+                    <span className="navbar-logo-mark">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M12 4L4 20h16L12 4z" />
+                        </svg>
+                    </span>
+                    <span>Atlas</span>
                 </Link>
 
                 <button
@@ -44,7 +48,7 @@ function Navbar() {
                         className="btn btn-primary navbar-cta"
                         onClick={() => setIsOpen(false)}
                     >
-                        + Add Opportunity
+                        Add Opportunity
                     </Link>
                 </div>
             </div>

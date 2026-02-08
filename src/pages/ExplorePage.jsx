@@ -13,15 +13,14 @@ function ExplorePage() {
         : opportunities.filter(opp => opp.type === activeFilter);
 
     return (
-        <div className="explore-page page-content">
+        <div className="explore page-content">
             <header className="explore-header">
-                <h1 className="explore-title">Explore Opportunities</h1>
+                <h1 className="explore-title">Explore opportunities</h1>
                 <p className="explore-subtitle">
-                    Discover programs, internships, and experiences that will take you to new heights.
+                    Browse programs, internships, and experiences to find your next step.
                 </p>
             </header>
 
-            {/* Filter Bar */}
             <div className="explore-filters">
                 <div className="filter-bar">
                     {types.map((type) => (
@@ -36,7 +35,6 @@ function ExplorePage() {
                 </div>
             </div>
 
-            {/* Opportunities Grid */}
             <div className="explore-grid">
                 {filteredOpportunities.length > 0 ? (
                     filteredOpportunities.map((opportunity) => (
@@ -44,7 +42,6 @@ function ExplorePage() {
                     ))
                 ) : (
                     <div className="explore-empty">
-                        <div className="explore-empty-icon">🏔️</div>
                         <p>No opportunities found for this filter.</p>
                     </div>
                 )}

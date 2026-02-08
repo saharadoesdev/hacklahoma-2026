@@ -10,34 +10,31 @@ function OpportunityCard({ opportunity }) {
     };
 
     return (
-        <article className="card opportunity-card" onClick={handleClick}>
-            <div className="opportunity-card-header">
-                <h3 className="opportunity-card-title">{opportunity.title}</h3>
+        <article className="card opp-card" onClick={handleClick}>
+            <div className="opp-card-header">
+                <h3 className="opp-card-title">{opportunity.title}</h3>
                 <span className={`badge ${getTypeBadgeColor(opportunity.type)}`}>
                     {opportunity.type}
                 </span>
             </div>
 
-            <p className="opportunity-card-description">
+            <p className="opp-card-desc">
                 {opportunity.description}
             </p>
 
-            <div className="opportunity-card-meta">
-                <span className="opportunity-card-meta-item">
-                    <span className="opportunity-card-meta-icon">📍</span>
+            <div className="opp-card-meta">
+                <span className="opp-card-meta-item">
                     {opportunity.location}
                 </span>
-                <span className="opportunity-card-meta-item">
-                    <span className="opportunity-card-meta-icon">⏱️</span>
+                <span className="opp-card-meta-item">
                     {opportunity.duration}
                 </span>
-                <span className="opportunity-card-meta-item">
-                    <span className="opportunity-card-meta-icon">📊</span>
+                <span className="opp-card-meta-item">
                     {opportunity.difficulty}
                 </span>
             </div>
 
-            <div className="opportunity-card-tags">
+            <div className="opp-card-tags">
                 {opportunity.tags.slice(0, 3).map((tag, index) => (
                     <span key={index} className="tag">{tag}</span>
                 ))}
@@ -45,8 +42,6 @@ function OpportunityCard({ opportunity }) {
                     <span className="tag">+{opportunity.tags.length - 3}</span>
                 )}
             </div>
-
-            <span className="opportunity-card-arrow">→</span>
         </article>
     );
 }

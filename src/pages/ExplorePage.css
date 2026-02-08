@@ -1,28 +1,26 @@
-.explore-page {
-    padding-top: 100px;
+.explore {
+    padding-top: 96px;
     min-height: 100vh;
 }
 
 .explore-header {
     text-align: center;
-    padding: var(--space-8) var(--space-6);
-    max-width: 800px;
+    padding: var(--space-8) var(--space-6) var(--space-6);
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .explore-title {
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
 }
 
 .explore-subtitle {
-    font-size: var(--text-lg);
-    color: rgba(248, 249, 250, 0.6);
+    color: var(--color-text-secondary);
 }
 
-/* Filter Bar */
+/* Filters */
 .explore-filters {
-    max-width: 1200px;
+    max-width: 1120px;
     margin: 0 auto var(--space-8);
     padding: 0 var(--space-6);
 }
@@ -30,59 +28,51 @@
 .filter-bar {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-3);
+    gap: var(--space-2);
     justify-content: center;
 }
 
 .filter-btn {
     padding: var(--space-2) var(--space-4);
-    font-family: var(--font-heading);
+    font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: 500;
-    color: rgba(248, 249, 250, 0.7);
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     cursor: pointer;
-    transition: all var(--transition-base);
+    transition: all var(--transition-fast);
 }
 
 .filter-btn:hover {
-    background: var(--color-mist);
-    color: var(--color-snow-white);
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
 }
 
 .filter-btn.active {
-    background: var(--color-summit-gold);
-    color: var(--color-deep-sky);
-    border-color: var(--color-summit-gold);
+    background: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
 }
 
-/* Opportunities Grid */
+/* Grid */
 .explore-grid {
-    max-width: 1200px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 0 var(--space-6) var(--space-16);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-4);
 }
 
-/* Empty State */
 .explore-empty {
     grid-column: 1 / -1;
     text-align: center;
     padding: var(--space-16);
-    color: rgba(248, 249, 250, 0.5);
+    color: var(--color-text-muted);
 }
 
-.explore-empty-icon {
-    font-size: 4rem;
-    margin-bottom: var(--space-4);
-    opacity: 0.5;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
     .explore-grid {
         grid-template-columns: 1fr;

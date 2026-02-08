@@ -9,13 +9,8 @@ import './index.css';
 function App() {
   return (
     <Router>
-      {/* Mountain Background */}
-      <div className="mountain-bg"></div>
-
-      {/* Navigation */}
+      <div className="app-bg"></div>
       <Navbar />
-
-      {/* Routes */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/explore" element={<ExplorePage />} />
