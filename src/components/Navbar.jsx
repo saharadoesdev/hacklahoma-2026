@@ -1,22 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
+    const isHome = location.pathname === '/';
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${scrolled || !isHome ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    <span className="navbar-logo-mark">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M12 4L4 20h16L12 4z" />
-                        </svg>
-                    </span>
                     <span>Atlas</span>
                 </Link>
 
@@ -45,10 +51,10 @@ function Navbar() {
                     </Link>
                     <Link
                         to="/create"
-                        className="btn btn-primary navbar-cta"
+                        className={`navbar-link ${isActive('/create') ? 'active' : ''}`}
                         onClick={() => setIsOpen(false)}
                     >
-                        Add Opportunity
+                        Add Listing
                     </Link>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './LandingPage.css';
 
 function LandingPage() {
@@ -13,88 +13,92 @@ function LandingPage() {
 
     return (
         <div className="landing">
+            {/* Hero Section with Search */}
             <section className="hero">
                 <div className="hero-content animate-in">
-                    <div className="hero-badge">
-                        <span className="hero-badge-dot"></span>
-                        <span>Discover your career path</span>
-                    </div>
-
-                    <h1 className="hero-title">
-                        Stop searching.<br />
-                        <span className="hero-title-accent">Start climbing.</span>
-                    </h1>
-
-                    <p className="hero-subtitle">
-                        Find research labs, internships, study abroad programs, and more —
-                        all matched to your interests and goals.
+                    <p className="hero-subtitle">Opportunity Atlas</p>
+                    <h1 className="hero-title">Stop Searching. Start Climbing.</h1>
+                    <p className="hero-description">
+                        Tell us about yourself and we'll match you with research labs, internships,
+                        study abroad programs, and opportunities that fit your path.
                     </p>
 
+                    {/* The main search box */}
                     <form className="hero-search" onSubmit={handleSearch}>
-                        <div className="search-wrapper">
-                            <input
-                                type="text"
-                                className="search-input"
-                                placeholder="I'm a CS major interested in biology..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                            <button type="submit" className="btn btn-primary search-btn">
-                                Find opportunities
-                            </button>
-                        </div>
+                        <textarea
+                            className="search-input"
+                            placeholder="I'm a computer science major interested in biology and data science. I've done some Python projects and I'm looking for research experience..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            rows={4}
+                        />
+                        <button type="submit" className="btn btn-primary btn-lg search-btn">
+                            Find My Path
+                        </button>
                     </form>
 
-                    <div className="hero-alt">
-                        <span>Not sure where to start?</span>
-                        <span className="hero-divider">·</span>
-                        <button
-                            className="btn btn-ghost"
-                            onClick={() => navigate('/explore')}
-                        >
-                            Browse all opportunities →
-                        </button>
+                    <p className="hero-hint">
+                        or <Link to="/explore" className="hero-link">browse all opportunities</Link>
+                    </p>
+                </div>
+            </section>
+
+            {/* Quick Links Section */}
+            <div className="services">
+                <Link to="/explore?type=Research" className="service-card">
+                    <h2 className="service-title">Research</h2>
+                    <p className="service-desc">Labs & REUs</p>
+                </Link>
+                <Link to="/explore?type=Internship" className="service-card">
+                    <h2 className="service-title">Internships</h2>
+                    <p className="service-desc">Industry Experience</p>
+                </Link>
+                <Link to="/explore?type=Study Abroad" className="service-card">
+                    <h2 className="service-title">Study Abroad</h2>
+                    <p className="service-desc">Global Programs</p>
+                </Link>
+            </div>
+
+            {/* How It Works */}
+            <section className="how-it-works">
+                <div className="how-container">
+                    <h2 className="how-title">How Atlas Works</h2>
+                    <div className="how-grid">
+                        <div className="how-step">
+                            <span className="how-number">1</span>
+                            <h3 className="how-step-title">Tell Us About You</h3>
+                            <p className="how-step-desc">
+                                Share your interests, skills, and what you're looking for.
+                            </p>
+                        </div>
+                        <div className="how-step">
+                            <span className="how-number">2</span>
+                            <h3 className="how-step-title">Get Matched</h3>
+                            <p className="how-step-desc">
+                                Our AI finds opportunities that fit your unique path.
+                            </p>
+                        </div>
+                        <div className="how-step">
+                            <span className="how-number">3</span>
+                            <h3 className="how-step-title">Start Climbing</h3>
+                            <p className="how-step-desc">
+                                See how each opportunity connects to your bigger goals.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section className="features">
-                <div className="features-container">
-                    <div className="features-header">
-                        <h2 className="features-title">How it works</h2>
-                        <p className="features-subtitle">
-                            We connect you with opportunities that build on each other.
-                        </p>
-                    </div>
-
-                    <div className="features-grid">
-                        <div className="card feature-card">
-                            <div className="feature-number">1</div>
-                            <h3 className="feature-title">Share your goals</h3>
-                            <p className="feature-desc">
-                                Tell us what you're interested in, what you've done,
-                                and where you want to go.
-                            </p>
-                        </div>
-
-                        <div className="card feature-card">
-                            <div className="feature-number">2</div>
-                            <h3 className="feature-title">Get matched</h3>
-                            <p className="feature-desc">
-                                Our system finds opportunities that fit your path,
-                                not just keyword matches.
-                            </p>
-                        </div>
-
-                        <div className="card feature-card">
-                            <div className="feature-number">3</div>
-                            <h3 className="feature-title">Build your path</h3>
-                            <p className="feature-desc">
-                                See how each opportunity connects to the next,
-                                building toward your goals.
-                            </p>
-                        </div>
-                    </div>
+            {/* CTA Section */}
+            <section className="cta">
+                <div className="cta-content">
+                    <h2 className="cta-title">Know of a Great Opportunity?</h2>
+                    <p className="cta-text">
+                        Help other students discover the programs that changed your path.
+                    </p>
+                    <Link to="/create" className="btn btn-lg">
+                        Add an Opportunity
+                    </Link>
                 </div>
             </section>
         </div>

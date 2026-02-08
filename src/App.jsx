@@ -9,7 +9,6 @@ import './index.css';
 function App() {
   return (
     <Router>
-      <div className="app-bg"></div>
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
