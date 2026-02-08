@@ -70,6 +70,39 @@
     color: var(--color-primary);
 }
 
+/* Divider between nav links and account */
+.navbar-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 var(--space-2);
+}
+
+.navbar.scrolled .navbar-divider {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Account icon */
+.navbar-account {
+    display: flex;
+    align-items: center;
+    padding: var(--space-2);
+    border-radius: 50%;
+    transition: background var(--transition), color var(--transition);
+}
+
+.navbar-account:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.navbar.scrolled .navbar-account:hover {
+    background: var(--color-surface);
+}
+
+.navbar-account svg {
+    display: block;
+}
+
 /* Mobile */
 .navbar-mobile-toggle {
     display: none;
@@ -119,5 +152,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .navbar-divider {
+        display: none;
+    }
+
+    .navbar-account {
+        padding: var(--space-3);
+    }
+
+    .navbar-account:hover {
+        background: var(--color-surface);
     }
 }
