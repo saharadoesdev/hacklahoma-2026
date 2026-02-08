@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import ExplorePage from './pages/ExplorePage';
 import OpportunityPage from './pages/OpportunityPage';
 import CreateListingPage from './pages/CreateListingPage';
+import PathResultsPage from './pages/PathResultsPage';
 import './index.css';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/path" element={<PathResultsPage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/opportunity/:id" element={<OpportunityPage />} />
         <Route path="/create" element={<CreateListingPage />} />

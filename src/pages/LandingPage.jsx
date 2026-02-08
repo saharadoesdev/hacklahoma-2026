@@ -8,7 +8,7 @@ function LandingPage() {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        navigate('/explore', { state: { query: searchQuery } });
+        navigate('/path', { state: { query: searchQuery } });
     };
 
     return (
