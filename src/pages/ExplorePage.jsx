@@ -45,12 +45,12 @@ function ExplorePage() {
             <div className="explore-container">
                 {/* Header */}
                 <header className="explore-hero">
-                    <h1 className="explore-title">Explore Opportunities</h1>
+                    <h1 className="explore-title">Explore</h1>
                     <p className="explore-subtitle">
-                        Browse the catalog or filter by what interests you.
+                        See what's out there. Click around. Something might surprise you.
                     </p>
                     <p className="explore-cta">
-                        Not sure what you're looking for? <Link to="/" className="explore-link">Tell us about yourself</Link> and we'll find your path.
+                        Want a personalized path? <Link to="/" className="explore-link">Tell us about yourself</Link>
                     </p>
                 </header>
 

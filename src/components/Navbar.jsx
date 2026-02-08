@@ -10,6 +10,9 @@ function Navbar() {
     const isActive = (path) => location.pathname === path;
     const isHome = location.pathname === '/';
 
+    // Hide navbar on loading page
+    const isLoading = location.pathname === '/loading';
+
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
@@ -19,11 +22,13 @@ function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    if (isLoading) return null;
+
     return (
         <nav className={`navbar ${scrolled || !isHome ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    <span>Atlas</span>
+                    <span>Trailhead</span>
                 </Link>
 
                 <button
@@ -36,13 +41,6 @@ function Navbar() {
 
                 <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
                     <Link
-                        to="/"
-                        className={`navbar-link ${isActive('/') ? 'active' : ''}`}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Home
-                    </Link>
-                    <Link
                         to="/explore"
                         className={`navbar-link ${isActive('/explore') ? 'active' : ''}`}
                         onClick={() => setIsOpen(false)}
@@ -51,10 +49,10 @@ function Navbar() {
                     </Link>
                     <Link
                         to="/create"
-                        className={`navbar-link ${isActive('/create') ? 'active' : ''}`}
+                        className="navbar-link navbar-link-cta"
                         onClick={() => setIsOpen(false)}
                     >
-                        Add Listing
+                        + Share
                     </Link>
                 </div>
             </div>

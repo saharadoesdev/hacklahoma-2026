@@ -310,3 +310,37 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: var(--space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-text-dark);
+    color: #ffffff;
+    font-size: var(--text-sm);
+    animation: slideUp 0.3s ease;
+    z-index: 1000;
+}
+
+.toast-icon {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}

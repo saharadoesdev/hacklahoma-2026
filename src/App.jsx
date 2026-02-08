@@ -5,6 +5,7 @@ import ExplorePage from './pages/ExplorePage';
 import OpportunityPage from './pages/OpportunityPage';
 import CreateListingPage from './pages/CreateListingPage';
 import PathResultsPage from './pages/PathResultsPage';
+import LoadingPage from './pages/LoadingPage';
 import './index.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/loading" element={<LoadingPage />} />
         <Route path="/path" element={<PathResultsPage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/opportunity/:id" element={<OpportunityPage />} />

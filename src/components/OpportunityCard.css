@@ -2,11 +2,12 @@
     padding: var(--space-6);
     cursor: pointer;
     background: var(--color-surface);
-    transition: all var(--transition);
+    border: 1px solid #e0e0e0;
+    transition: border-color 0.2s ease;
 }
 
 .opp-card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-primary);
 }
 
 .opp-card-header {
@@ -21,7 +22,6 @@
     font-size: var(--text-lg);
     font-weight: 600;
     color: var(--color-text-dark);
-    
     margin: 0;
 }
 
@@ -43,7 +43,6 @@
     margin-bottom: var(--space-4);
     font-size: var(--text-xs);
     color: var(--color-text-light);
-    
 }
 
 .opp-card-meta-item {

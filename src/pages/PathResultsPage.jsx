@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { generatePathForUser, getRecommendedOpportunities } from '../data/mockData';
 import OpportunityCard from '../components/OpportunityCard';
@@ -7,6 +8,7 @@ function PathResultsPage() {
     const location = useLocation();
     const navigate = useNavigate();
     const userQuery = location.state?.query || "your interests and goals";
+    const [showToast, setShowToast] = useState(false);
 
     // Generate personalized path using mock service
     // TODO: This will become an API call to Gemini
@@ -27,15 +29,26 @@ function PathResultsPage() {
         navigate(`/opportunity/${stepId}`);
     };
 
+    const handleStartClimb = () => {
+        // TODO: Connect to user profile/saved paths
+        setShowToast(true);
+        setTimeout(() => {
+            setShowToast(false);
+            // Navigate to first step
+            navigate(`/opportunity/${pathResult.steps[0].id}`);
+        }, 1500);
+    };
+
     return (
         <div className="path-page">
             <div className="path-container">
                 {/* Header */}
                 <header className="path-header animate-in">
-                    <p className="path-label">YOUR PERSONALIZED PATH</p>
-                    <h1 className="path-title">Here's How to Reach Your Summit</h1>
+                    <p className="path-label">YOUR PATH</p>
+                    <h1 className="path-title">Here's One Way Up</h1>
                     <p className="path-subtitle">
-                        Based on what you shared, we've mapped out a path to help you climb toward your goals.
+                        Based on what you shared, here's a path worth exploring.
+                        This isn't the only way—but it's a good place to start.
                     </p>
                 </header>
 
@@ -82,7 +95,7 @@ function PathResultsPage() {
 
                 {/* Primary CTA */}
                 <div className="path-actions">
-                    <button className="btn btn-primary btn-lg">
+                    <button className="btn btn-primary btn-lg" onClick={handleStartClimb}>
                         Start My Climb
                     </button>
                 </div>
@@ -111,6 +124,14 @@ function PathResultsPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Toast */}
+            {showToast && (
+                <div className="toast">
+                    <span className="toast-icon">✓</span>
+                    <span>Path saved! Let's start climbing...</span>
+                </div>
+            )}
         </div>
     );
 }

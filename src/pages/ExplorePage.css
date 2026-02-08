@@ -68,32 +68,29 @@
 .collection-card {
     padding: var(--space-5);
     background: var(--color-surface);
-    border: 2px solid #e8e8e8;
-    border-radius: 10px;
+    border: 1px solid #e0e0e0;
     text-align: left;
     cursor: pointer;
-    transition: all var(--transition);
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .collection-card:hover {
     border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .collection-card.active {
     border-color: var(--color-primary);
-    background: rgba(26, 108, 122, 0.05);
+    background: rgba(26, 108, 122, 0.03);
 }
 
 .collection-icon {
-    font-size: 28px;
+    font-size: 24px;
     display: block;
     margin-bottom: var(--space-3);
 }
 
 .collection-title {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-dark);
     margin-bottom: var(--space-2);
@@ -124,9 +121,8 @@
     color: var(--color-text);
     background: var(--color-surface);
     border: 1px solid #ddd;
-    border-radius: 20px;
     cursor: pointer;
-    transition: all var(--transition);
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
 .filter-btn:hover {
@@ -146,8 +142,8 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--space-3) var(--space-4);
-    background: rgba(26, 108, 122, 0.08);
-    border-radius: 8px;
+    background: var(--color-surface);
+    border: 1px solid #e0e0e0;
     margin-bottom: var(--space-6);
 }
 
@@ -163,7 +159,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    transition: color var(--transition);
+    transition: color 0.2s ease;
 }
 
 .clear-filter:hover {

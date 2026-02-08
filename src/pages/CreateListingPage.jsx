@@ -200,7 +200,7 @@ function CreateListingPage() {
             {showToast && (
                 <div className="toast">
                     <span className="toast-icon">✓</span>
-                    <span>Opportunity added. Redirecting...</span>
+                    <span>Thanks for sharing! Redirecting...</span>
                 </div>
             )}
         </div>

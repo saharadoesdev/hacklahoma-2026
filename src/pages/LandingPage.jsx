@@ -8,7 +8,7 @@ function LandingPage() {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        navigate('/path', { state: { query: searchQuery } });
+        navigate('/loading', { state: { query: searchQuery } });
     };
 
     return (
@@ -16,18 +16,20 @@ function LandingPage() {
             {/* Hero Section with Search */}
             <section className="hero">
                 <div className="hero-content animate-in">
-                    <p className="hero-subtitle">Opportunity Atlas</p>
-                    <h1 className="hero-title">Stop Searching. Start Climbing.</h1>
+                    <h1 className="hero-title">
+                        <span className="title-line">Stop Searching.</span>
+                        <span className="title-line">Start Climbing.</span>
+                    </h1>
                     <p className="hero-description">
-                        Tell us about yourself and we'll match you with research labs, internships,
-                        study abroad programs, and opportunities that fit your path.
+                        Whether you know exactly what you want or you're still figuring it out—tell us
+                        what's on your mind and we'll show you paths worth exploring.
                     </p>
 
                     {/* The main search box */}
                     <form className="hero-search" onSubmit={handleSearch}>
                         <textarea
                             className="search-input"
-                            placeholder="I'm a computer science major interested in biology and data science. I've done some Python projects and I'm looking for research experience..."
+                            placeholder="I'm interested in tech but also want to do something meaningful. I've done a few coding projects but I'm not sure what the next step is..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             rows={4}
@@ -38,7 +40,7 @@ function LandingPage() {
                     </form>
 
                     <p className="hero-hint">
-                        or <Link to="/explore" className="hero-link">browse all opportunities</Link>
+                        or <Link to="/explore" className="hero-link">just start exploring</Link>
                     </p>
                 </div>
             </section>
@@ -62,27 +64,27 @@ function LandingPage() {
             {/* How It Works */}
             <section className="how-it-works">
                 <div className="how-container">
-                    <h2 className="how-title">How Atlas Works</h2>
+                    <h2 className="how-title">How It Works</h2>
                     <div className="how-grid">
                         <div className="how-step">
                             <span className="how-number">1</span>
-                            <h3 className="how-step-title">Tell Us About You</h3>
+                            <h3 className="how-step-title">Share What's on Your Mind</h3>
                             <p className="how-step-desc">
-                                Share your interests, skills, and what you're looking for.
+                                Goals, interests, doubts—whatever helps us understand where you're at.
                             </p>
                         </div>
                         <div className="how-step">
                             <span className="how-number">2</span>
-                            <h3 className="how-step-title">Get Matched</h3>
+                            <h3 className="how-step-title">We Find the Connections</h3>
                             <p className="how-step-desc">
-                                Our AI finds opportunities that fit your unique path.
+                                We match you with opportunities based on who you are, not just keywords.
                             </p>
                         </div>
                         <div className="how-step">
                             <span className="how-number">3</span>
-                            <h3 className="how-step-title">Start Climbing</h3>
+                            <h3 className="how-step-title">See Your Path</h3>
                             <p className="how-step-desc">
-                                See how each opportunity connects to your bigger goals.
+                                Get a personalized roadmap showing how each step leads to the next.
                             </p>
                         </div>
                     </div>
@@ -92,12 +94,12 @@ function LandingPage() {
             {/* CTA Section */}
             <section className="cta">
                 <div className="cta-content">
-                    <h2 className="cta-title">Know of a Great Opportunity?</h2>
+                    <h2 className="cta-title">Know a Hidden Gem?</h2>
                     <p className="cta-text">
-                        Help other students discover the programs that changed your path.
+                        Share the opportunities that helped shape your path.
                     </p>
                     <Link to="/create" className="btn btn-lg">
-                        Add an Opportunity
+                        Share an Opportunity
                     </Link>
                 </div>
             </section>
